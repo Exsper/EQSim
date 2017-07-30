@@ -211,7 +211,7 @@
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(100, 36);
             this.SaveButton.TabIndex = 15;
-            this.SaveButton.Text = "保存装备";
+            this.SaveButton.Text = "保存";
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
@@ -221,7 +221,7 @@
             this.LoadButton.Name = "LoadButton";
             this.LoadButton.Size = new System.Drawing.Size(100, 36);
             this.LoadButton.TabIndex = 16;
-            this.LoadButton.Text = "读取装备";
+            this.LoadButton.Text = "读取";
             this.LoadButton.UseVisualStyleBackColor = true;
             this.LoadButton.Click += new System.EventHandler(this.LoadButton_Click);
             // 
@@ -281,14 +281,14 @@
         private System.Windows.Forms.Button RandomCreateEQButton;
         public System.Windows.Forms.TextBox LogTextBox;
         private System.Windows.Forms.TextBox StateTextBox;
-        private System.Windows.Forms.NumericUpDown StrengthNumericUpDown;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox MilitaryRankComboBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button CreateEQButton;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button LoadButton;
         private System.Windows.Forms.Button EmptyStorageButton;
+        public System.Windows.Forms.NumericUpDown StrengthNumericUpDown;
+        public System.Windows.Forms.ComboBox MilitaryRankComboBox;
     }
 }
 

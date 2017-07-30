@@ -125,15 +125,9 @@ namespace EQSim
 
         #region 个人信息
 
-        //已经装备
-        public static Equipment equipedHelmet;
-        public static Equipment equipedVision;
-        public static Equipment equipedArmor;
-        public static Equipment equipedPants;
-        public static Equipment equipedShoes;
-        public static Equipment equipedWeapon;
-        public static Equipment equipedOffhand;
-        public static Equipment equipedLuckycharm;
+        //穿着的装备
+        public static Equipment[] wearedEquipment=new Equipment[8];
+
 
         //背包中的装备
         public static List<Equipment> storage = new List<Equipment>();

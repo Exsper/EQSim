@@ -33,14 +33,13 @@ namespace EQSim
         private void UpdateWearedEquipment()
         {
             EquipedCheckedListBox.Items.Clear();
-            if (GlobalSpace.equipedHelmet != null) EquipedCheckedListBox.Items.Add(GlobalSpace.equipedHelmet);
-            if (GlobalSpace.equipedVision != null) EquipedCheckedListBox.Items.Add(GlobalSpace.equipedVision);
-            if (GlobalSpace.equipedArmor != null) EquipedCheckedListBox.Items.Add(GlobalSpace.equipedArmor);
-            if (GlobalSpace.equipedPants != null) EquipedCheckedListBox.Items.Add(GlobalSpace.equipedPants);
-            if (GlobalSpace.equipedShoes != null) EquipedCheckedListBox.Items.Add(GlobalSpace.equipedShoes);
-            if (GlobalSpace.equipedWeapon != null) EquipedCheckedListBox.Items.Add(GlobalSpace.equipedWeapon);
-            if (GlobalSpace.equipedOffhand != null) EquipedCheckedListBox.Items.Add(GlobalSpace.equipedOffhand);
-            if (GlobalSpace.equipedLuckycharm != null) EquipedCheckedListBox.Items.Add(GlobalSpace.equipedLuckycharm);
+            for (int i = 0; i <= GlobalSpace.maxType; i++)
+            {
+                if (GlobalSpace.wearedEquipment[i] != null)
+                {
+                    EquipedCheckedListBox.Items.Add(GlobalSpace.wearedEquipment[i]);
+                }
+            }
         }
 
         private void UpdateState()
@@ -211,7 +210,7 @@ namespace EQSim
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            LoadSave.SaveFile();
+            LoadSave.SaveFile(Convert.ToInt32(StrengthNumericUpDown.Value), MilitaryRankComboBox.SelectedIndex);
             UpdateStorage();
             UpdateWearedEquipment();
             UpdateState();

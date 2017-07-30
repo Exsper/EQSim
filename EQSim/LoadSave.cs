@@ -11,8 +11,10 @@ namespace EQSim
     {
         private static string settingIni = Environment.CurrentDirectory + "\\Settings.eqs";
 
-        private static string wearedEquipment = "W";
-        private static string Storage = "S";
+        private static string wearedEquipmentChar = "W";
+        private static string storageChar = "S";
+        private static string strengthChar = "T";
+        private static string militaryRankCountChar = "M";
 
 
         private static string EQ2S(Equipment eq)
@@ -20,49 +22,27 @@ namespace EQSim
             return eq.Set + "," + eq.Type + "," + eq.Quality + "," + eq.Parameter1 + "," + eq.Value1 + "," + eq.Parameter2 + "," + eq.Value2;
         }
 
-        public static void SaveFile()
+        public static void SaveFile(int strength, int militaryRankCount)
         {
             try
             {
                 StreamWriter sw = new StreamWriter(settingIni);
 
-                if (GlobalSpace.equipedHelmet != null)
+                for (int i = 0; i <= GlobalSpace.maxType; i++)
                 {
-                    sw.WriteLine(wearedEquipment + "," + EQ2S(GlobalSpace.equipedHelmet));
-                }
-                if (GlobalSpace.equipedVision != null)
-                {
-                    sw.WriteLine(wearedEquipment + "," + EQ2S(GlobalSpace.equipedVision));
-                }
-                if (GlobalSpace.equipedArmor != null)
-                {
-                    sw.WriteLine(wearedEquipment + "," + EQ2S(GlobalSpace.equipedArmor));
-                }
-                if (GlobalSpace.equipedPants != null)
-                {
-                    sw.WriteLine(wearedEquipment + "," + EQ2S(GlobalSpace.equipedPants));
-                }
-                if (GlobalSpace.equipedShoes != null)
-                {
-                    sw.WriteLine(wearedEquipment + "," + EQ2S(GlobalSpace.equipedShoes));
-                }
-                if (GlobalSpace.equipedWeapon != null)
-                {
-                    sw.WriteLine(wearedEquipment + "," + EQ2S(GlobalSpace.equipedWeapon));
-                }
-                if (GlobalSpace.equipedOffhand != null)
-                {
-                    sw.WriteLine(wearedEquipment + "," + EQ2S(GlobalSpace.equipedOffhand));
-                }
-                if (GlobalSpace.equipedLuckycharm != null)
-                {
-                    sw.WriteLine(wearedEquipment + "," + EQ2S(GlobalSpace.equipedLuckycharm));
+                    if (GlobalSpace.wearedEquipment[i] != null)
+                    {
+                        sw.WriteLine(wearedEquipmentChar + "," + EQ2S(GlobalSpace.wearedEquipment[i]));
+                    }
                 }
 
                 foreach (Equipment eq in GlobalSpace.storage)
                 {
-                    sw.WriteLine(Storage + "," + EQ2S(eq));
+                    sw.WriteLine(storageChar + "," + EQ2S(eq));
                 }
+
+                sw.WriteLine(strengthChar + "," + strength.ToString());
+                sw.WriteLine(militaryRankCountChar + "," + militaryRankCount.ToString());
 
                 Log.LogInfo("保存成功");
                 sw.Close();
@@ -85,14 +65,10 @@ namespace EQSim
                 }
 
                 GlobalSpace.storage.Clear();
-                GlobalSpace.equipedHelmet = null;
-                GlobalSpace.equipedVision = null;
-                GlobalSpace.equipedArmor = null;
-                GlobalSpace.equipedPants = null;
-                GlobalSpace.equipedShoes = null;
-                GlobalSpace.equipedWeapon = null;
-                GlobalSpace.equipedOffhand = null;
-                GlobalSpace.equipedLuckycharm = null;
+                for (int i = 0; i <= GlobalSpace.maxType; i++)
+                {
+                    GlobalSpace.wearedEquipment[i] = null;
+                }
 
                 StreamReader sr = new StreamReader(settingIni);
                 string nextLine;
@@ -100,16 +76,26 @@ namespace EQSim
                 while ((nextLine = sr.ReadLine()) != null)
                 {
                     eqcode = nextLine.Split(',');
-                    if (eqcode[0] == wearedEquipment)
+                    if (eqcode[0] == wearedEquipmentChar)
                     {
                         EquipmentOperation.CreateWearedRandomEquipment(Convert.ToInt32(eqcode[1]), Convert.ToInt32(eqcode[2]), Convert.ToInt32(eqcode[3]), Convert.ToInt32(eqcode[4]), Convert.ToInt32(eqcode[5]), Convert.ToInt32(eqcode[6]), Convert.ToInt32(eqcode[7]));
                     }
-                    if (eqcode[0] == Storage)
+                    else if (eqcode[0] == storageChar)
                     {
                         EquipmentOperation.CreateRandomEquipment(Convert.ToInt32(eqcode[1]), Convert.ToInt32(eqcode[2]), Convert.ToInt32(eqcode[3]), Convert.ToInt32(eqcode[4]), Convert.ToInt32(eqcode[5]), Convert.ToInt32(eqcode[6]), Convert.ToInt32(eqcode[7]));
                     }
-
-
+                    else if (eqcode[0] == strengthChar)
+                    {
+                        Form1.f.StrengthNumericUpDown.Value = Convert.ToInt32(eqcode[1]);
+                    }
+                    else if (eqcode[0] == militaryRankCountChar)
+                    {
+                        Form1.f.MilitaryRankComboBox.SelectedIndex = Convert.ToInt32(eqcode[1]);
+                    }
+                    else
+                    {
+                        Log.LogBug("未知标识字符："+ eqcode[0]);
+                    }
                 }
 
                 sr.Close();

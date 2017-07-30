@@ -758,94 +758,13 @@ namespace EQSim
         /// <param name="eq">穿上的装备</param>
         public static void WearEquipment(Equipment eq)
         {
-            switch(eq.Type)
+            if (GlobalSpace.wearedEquipment[eq.Type] != null)
             {
-                case 0:
-                    {
-                        if (GlobalSpace.equipedHelmet != null)
-                        {
-                            GlobalSpace.storage.Add(GlobalSpace.equipedHelmet);
-                        }
-                        GlobalSpace.equipedHelmet = eq;
-                        GlobalSpace.storage.Remove(eq);
-                        break;
-                    }
-                case 1:
-                    {
-                        if (GlobalSpace.equipedVision != null)
-                        {
-                            GlobalSpace.storage.Add(GlobalSpace.equipedVision);
-                        }
-                        GlobalSpace.equipedVision = eq;
-                        GlobalSpace.storage.Remove(eq);
-                        break;
-                    }
-                case 2:
-                    {
-                        if (GlobalSpace.equipedArmor != null)
-                        {
-                            GlobalSpace.storage.Add(GlobalSpace.equipedArmor);
-                        }
-                        GlobalSpace.equipedArmor = eq;
-                        GlobalSpace.storage.Remove(eq);
-                        break;
-                    }
-                case 3:
-                    {
-                        if (GlobalSpace.equipedPants != null)
-                        {
-                            GlobalSpace.storage.Add(GlobalSpace.equipedPants);
-                        }
-                        GlobalSpace.equipedPants = eq;
-                        GlobalSpace.storage.Remove(eq);
-                        break;
-                    }
-                case 4:
-                    {
-                        if (GlobalSpace.equipedShoes != null)
-                        {
-                            GlobalSpace.storage.Add(GlobalSpace.equipedShoes);
-                        }
-                        GlobalSpace.equipedShoes = eq;
-                        GlobalSpace.storage.Remove(eq);
-                        break;
-                    }
-                case 5:
-                    {
-                        if (GlobalSpace.equipedWeapon != null)
-                        {
-                            GlobalSpace.storage.Add(GlobalSpace.equipedWeapon);
-                        }
-                        GlobalSpace.equipedWeapon = eq;
-                        GlobalSpace.storage.Remove(eq);
-                        break;
-                    }
-                case 6:
-                    {
-                        if (GlobalSpace.equipedOffhand != null)
-                        {
-                            GlobalSpace.storage.Add(GlobalSpace.equipedOffhand);
-                        }
-                        GlobalSpace.equipedOffhand = eq;
-                        GlobalSpace.storage.Remove(eq);
-                        break;
-                    }
-                case 7:
-                    {
-                        if (GlobalSpace.equipedLuckycharm != null)
-                        {
-                            GlobalSpace.storage.Add(GlobalSpace.equipedLuckycharm);
-                        }
-                        GlobalSpace.equipedLuckycharm = eq;
-                        GlobalSpace.storage.Remove(eq);
-                        break;
-                    }
-                default:
-                    {
-                        Log.LogBug("穿上装备时装备类型出错：" + eq.Type.ToString());
-                        break;
-                    }
+                GlobalSpace.storage.Add(GlobalSpace.wearedEquipment[eq.Type]);
             }
+            GlobalSpace.wearedEquipment[eq.Type] = eq;
+            GlobalSpace.storage.Remove(eq);
+
             StorageSort();
         }
 
@@ -856,62 +775,9 @@ namespace EQSim
         /// <param name="type">脱下装备的类型</param>
         public static void UnwearEquipment(int type)
         {
-            switch (type)
-            {
-                case 0:
-                    {
-                        GlobalSpace.storage.Add(GlobalSpace.equipedHelmet);
-                        GlobalSpace.equipedHelmet = null;
-                        break;
-                    }
-                case 1:
-                    {
-                        GlobalSpace.storage.Add(GlobalSpace.equipedVision);
-                        GlobalSpace.equipedVision = null;
-                        break;
-                    }
-                case 2:
-                    {
-                        GlobalSpace.storage.Add(GlobalSpace.equipedArmor);
-                        GlobalSpace.equipedArmor = null;
-                        break;
-                    }
-                case 3:
-                    {
-                        GlobalSpace.storage.Add(GlobalSpace.equipedPants);
-                        GlobalSpace.equipedPants = null;
-                        break;
-                    }
-                case 4:
-                    {
-                        GlobalSpace.storage.Add(GlobalSpace.equipedShoes);
-                        GlobalSpace.equipedShoes = null;
-                        break;
-                    }
-                case 5:
-                    {
-                        GlobalSpace.storage.Add(GlobalSpace.equipedWeapon);
-                        GlobalSpace.equipedWeapon = null;
-                        break;
-                    }
-                case 6:
-                    {
-                        GlobalSpace.storage.Add(GlobalSpace.equipedOffhand);
-                        GlobalSpace.equipedOffhand = null;
-                        break;
-                    }
-                case 7:
-                    {
-                        GlobalSpace.storage.Add(GlobalSpace.equipedLuckycharm);
-                        GlobalSpace.equipedLuckycharm = null;
-                        break;
-                    }
-                default:
-                    {
-                        Log.LogBug("脱下装备时装备类型出错：" + type.ToString());
-                        break;
-                    }
-            }
+
+            GlobalSpace.storage.Add(GlobalSpace.wearedEquipment[type]);
+            GlobalSpace.wearedEquipment[type] = null;
             StorageSort();
         }
 
@@ -926,45 +792,13 @@ namespace EQSim
         {
             int[] sum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             int[] state = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            if (GlobalSpace.equipedHelmet != null)
+            for (int i = 0; i <= GlobalSpace.maxType; i++)
             {
-                sum[GlobalSpace.equipedHelmet.Parameter1] += GlobalSpace.equipedHelmet.Value1;
-                sum[GlobalSpace.equipedHelmet.Parameter2] += GlobalSpace.equipedHelmet.Value2;
-            }
-            if (GlobalSpace.equipedVision != null)
-            {
-                sum[GlobalSpace.equipedVision.Parameter1] += GlobalSpace.equipedVision.Value1;
-                sum[GlobalSpace.equipedVision.Parameter2] += GlobalSpace.equipedVision.Value2;
-            }
-            if (GlobalSpace.equipedArmor != null)
-            {
-                sum[GlobalSpace.equipedArmor.Parameter1] += GlobalSpace.equipedArmor.Value1;
-                sum[GlobalSpace.equipedArmor.Parameter2] += GlobalSpace.equipedArmor.Value2;
-            }
-            if (GlobalSpace.equipedPants != null)
-            {
-                sum[GlobalSpace.equipedPants.Parameter1] += GlobalSpace.equipedPants.Value1;
-                sum[GlobalSpace.equipedPants.Parameter2] += GlobalSpace.equipedPants.Value2;
-            }
-            if (GlobalSpace.equipedShoes != null)
-            {
-                sum[GlobalSpace.equipedShoes.Parameter1] += GlobalSpace.equipedShoes.Value1;
-                sum[GlobalSpace.equipedShoes.Parameter2] += GlobalSpace.equipedShoes.Value2;
-            }
-            if (GlobalSpace.equipedWeapon != null)
-            {
-                sum[GlobalSpace.equipedWeapon.Parameter1] += GlobalSpace.equipedWeapon.Value1;
-                sum[GlobalSpace.equipedWeapon.Parameter2] += GlobalSpace.equipedWeapon.Value2;
-            }
-            if (GlobalSpace.equipedOffhand != null)
-            {
-                sum[GlobalSpace.equipedOffhand.Parameter1] += GlobalSpace.equipedOffhand.Value1;
-                sum[GlobalSpace.equipedOffhand.Parameter2] += GlobalSpace.equipedOffhand.Value2;
-            }
-            if (GlobalSpace.equipedLuckycharm != null)
-            {
-                sum[GlobalSpace.equipedLuckycharm.Parameter1] += GlobalSpace.equipedLuckycharm.Value1;
-                sum[GlobalSpace.equipedLuckycharm.Parameter2] += GlobalSpace.equipedLuckycharm.Value2;
+                if (GlobalSpace.wearedEquipment[i] != null)
+                {
+                    sum[GlobalSpace.wearedEquipment[i].Parameter1] += GlobalSpace.wearedEquipment[i].Value1;
+                    sum[GlobalSpace.wearedEquipment[i].Parameter2] += GlobalSpace.wearedEquipment[i].Value2;
+                }
             }
             for(int i = 0;i<= GlobalSpace.maxParameter; i++)
             {
