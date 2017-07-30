@@ -88,6 +88,27 @@ namespace EQSim
                     else
                     {
                         Log.LogInfo("默认存档版本：v1");
+                        //读取第一行内容
+                        if (eqcode[0] == wearedEquipmentChar)
+                        {
+                            EquipmentOperation.CreateWearedRandomEquipment(Convert.ToInt32(eqcode[1]), Convert.ToInt32(eqcode[2]), Convert.ToInt32(eqcode[3]), Convert.ToInt32(eqcode[4]), Convert.ToInt32(eqcode[5]), Convert.ToInt32(eqcode[6]), Convert.ToInt32(eqcode[7]));
+                        }
+                        else if (eqcode[0] == storageChar)
+                        {
+                            EquipmentOperation.CreateRandomEquipment(Convert.ToInt32(eqcode[1]), Convert.ToInt32(eqcode[2]), Convert.ToInt32(eqcode[3]), Convert.ToInt32(eqcode[4]), Convert.ToInt32(eqcode[5]), Convert.ToInt32(eqcode[6]), Convert.ToInt32(eqcode[7]));
+                        }
+                        else if (eqcode[0] == strengthChar)
+                        {
+                            Form1.f.StrengthNumericUpDown.Value = Convert.ToInt32(eqcode[1]);
+                        }
+                        else if (eqcode[0] == militaryRankCountChar)
+                        {
+                            Form1.f.MilitaryRankComboBox.SelectedIndex = Convert.ToInt32(eqcode[1]);
+                        }
+                        else
+                        {
+                            Log.LogBug("未知标识字符：" + eqcode[0]);
+                        }
                     }
                     break;
                 }
