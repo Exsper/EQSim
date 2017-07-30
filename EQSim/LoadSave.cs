@@ -10,12 +10,13 @@ namespace EQSim
     class LoadSave
     {
         private static string settingIni = Environment.CurrentDirectory + "\\Settings.eqs";
+        private static string version = "1";
 
+        private static string versionChar = "V";
         private static string wearedEquipmentChar = "W";
         private static string storageChar = "S";
         private static string strengthChar = "T";
         private static string militaryRankCountChar = "M";
-
 
         private static string EQ2S(Equipment eq)
         {
@@ -27,6 +28,11 @@ namespace EQSim
             try
             {
                 StreamWriter sw = new StreamWriter(settingIni);
+
+                sw.WriteLine(versionChar + "," + version);
+
+                sw.WriteLine(strengthChar + "," + strength.ToString());
+                sw.WriteLine(militaryRankCountChar + "," + militaryRankCount.ToString());
 
                 for (int i = 0; i <= GlobalSpace.maxType; i++)
                 {
@@ -40,9 +46,6 @@ namespace EQSim
                 {
                     sw.WriteLine(storageChar + "," + EQ2S(eq));
                 }
-
-                sw.WriteLine(strengthChar + "," + strength.ToString());
-                sw.WriteLine(militaryRankCountChar + "," + militaryRankCount.ToString());
 
                 Log.LogInfo("保存成功");
                 sw.Close();
@@ -73,6 +76,23 @@ namespace EQSim
                 StreamReader sr = new StreamReader(settingIni);
                 string nextLine;
                 string[] eqcode;
+
+                //读取存档版本（第一行）
+                while ((nextLine = sr.ReadLine()) != null)
+                {
+                    eqcode = nextLine.Split(',');
+                    if (eqcode[0] == versionChar)
+                    {
+                        Log.LogInfo("读取存档版本：v" + eqcode[0]);
+                    }
+                    else
+                    {
+                        Log.LogInfo("默认存档版本：v1");
+                    }
+                    break;
+                }
+
+                //读取存档内容
                 while ((nextLine = sr.ReadLine()) != null)
                 {
                     eqcode = nextLine.Split(',');

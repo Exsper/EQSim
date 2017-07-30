@@ -147,11 +147,6 @@
             // 
             // StrengthNumericUpDown
             // 
-            this.StrengthNumericUpDown.Increment = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
             this.StrengthNumericUpDown.Location = new System.Drawing.Point(59, 148);
             this.StrengthNumericUpDown.Maximum = new decimal(new int[] {
             10000,

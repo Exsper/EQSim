@@ -44,12 +44,15 @@
             this.Value2TextBox = new System.Windows.Forms.TextBox();
             this.CreateButton = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.RandomValue1CheckBox = new System.Windows.Forms.CheckBox();
+            this.RandomValue2CheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // SetComboBox
             // 
             this.SetComboBox.FormattingEnabled = true;
             this.SetComboBox.Items.AddRange(new object[] {
+            "<随机>",
             "普通（Standard Set）",
             "Pirate Set",
             "Post Apocalyptic Set",
@@ -127,6 +130,7 @@
             // 
             this.TypeComboBox.FormattingEnabled = true;
             this.TypeComboBox.Items.AddRange(new object[] {
+            "<随机>",
             "头盔",
             "护目镜",
             "盔甲",
@@ -144,6 +148,7 @@
             // 
             this.QualityComboBox.FormattingEnabled = true;
             this.QualityComboBox.Items.AddRange(new object[] {
+            "<随机>",
             "Q1",
             "Q2",
             "Q3",
@@ -159,6 +164,7 @@
             // 
             this.Parameter1ComboBox.FormattingEnabled = true;
             this.Parameter1ComboBox.Items.AddRange(new object[] {
+            "<随机>",
             "减少失误率",
             "增加暴击率",
             "增加最大伤害",
@@ -179,7 +185,7 @@
             // 
             this.Value1TextBox.Location = new System.Drawing.Point(53, 85);
             this.Value1TextBox.Name = "Value1TextBox";
-            this.Value1TextBox.Size = new System.Drawing.Size(202, 21);
+            this.Value1TextBox.Size = new System.Drawing.Size(136, 21);
             this.Value1TextBox.TabIndex = 11;
             this.Value1TextBox.Text = "6.66";
             // 
@@ -187,6 +193,7 @@
             // 
             this.Parameter2ComboBox.FormattingEnabled = true;
             this.Parameter2ComboBox.Items.AddRange(new object[] {
+            "<随机>",
             "减少失误率",
             "增加暴击率",
             "增加最大伤害",
@@ -207,7 +214,7 @@
             // 
             this.Value2TextBox.Location = new System.Drawing.Point(53, 138);
             this.Value2TextBox.Name = "Value2TextBox";
-            this.Value2TextBox.Size = new System.Drawing.Size(202, 21);
+            this.Value2TextBox.Size = new System.Drawing.Size(136, 21);
             this.Value2TextBox.TabIndex = 13;
             this.Value2TextBox.Text = "6.66";
             // 
@@ -232,11 +239,35 @@
             this.textBox3.TabIndex = 15;
             this.textBox3.Text = "注：指定属性或数值可能会产生不正常装备。";
             // 
+            // RandomValue1CheckBox
+            // 
+            this.RandomValue1CheckBox.AutoSize = true;
+            this.RandomValue1CheckBox.Location = new System.Drawing.Point(195, 87);
+            this.RandomValue1CheckBox.Name = "RandomValue1CheckBox";
+            this.RandomValue1CheckBox.Size = new System.Drawing.Size(48, 16);
+            this.RandomValue1CheckBox.TabIndex = 16;
+            this.RandomValue1CheckBox.Text = "随机";
+            this.RandomValue1CheckBox.UseVisualStyleBackColor = true;
+            this.RandomValue1CheckBox.CheckedChanged += new System.EventHandler(this.RandomValue1CheckBox_CheckedChanged);
+            // 
+            // RandomValue2CheckBox
+            // 
+            this.RandomValue2CheckBox.AutoSize = true;
+            this.RandomValue2CheckBox.Location = new System.Drawing.Point(195, 140);
+            this.RandomValue2CheckBox.Name = "RandomValue2CheckBox";
+            this.RandomValue2CheckBox.Size = new System.Drawing.Size(48, 16);
+            this.RandomValue2CheckBox.TabIndex = 17;
+            this.RandomValue2CheckBox.Text = "随机";
+            this.RandomValue2CheckBox.UseVisualStyleBackColor = true;
+            this.RandomValue2CheckBox.CheckedChanged += new System.EventHandler(this.RandomValue2CheckBox_CheckedChanged);
+            // 
             // CreateEquipment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(264, 206);
+            this.Controls.Add(this.RandomValue2CheckBox);
+            this.Controls.Add(this.RandomValue1CheckBox);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.CreateButton);
             this.Controls.Add(this.Value2TextBox);
@@ -282,5 +313,7 @@
         private System.Windows.Forms.TextBox Value2TextBox;
         private System.Windows.Forms.Button CreateButton;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.CheckBox RandomValue1CheckBox;
+        private System.Windows.Forms.CheckBox RandomValue2CheckBox;
     }
 }

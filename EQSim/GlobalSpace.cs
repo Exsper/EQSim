@@ -126,7 +126,7 @@ namespace EQSim
         #region 个人信息
 
         //穿着的装备
-        public static Equipment[] wearedEquipment=new Equipment[8];
+        public static Equipment[] wearedEquipment = new Equipment[8];
 
 
         //背包中的装备

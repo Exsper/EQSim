@@ -337,7 +337,14 @@ namespace EQSim
             }
             else
             {
-                v1 = sv1;
+                if (p1 != 5 && p1 != 6)
+                {
+                    v1 = sv1;
+                }
+                else //力量或伤害点在给定时
+                {
+                    v1 = sv1 / 100;
+                }
             }
 
             //数值2
@@ -349,7 +356,14 @@ namespace EQSim
             }
             else
             {
-                v2 = sv2;
+                if (p2 != 5 && p2 != 6)
+                {
+                    v2 = sv2;
+                }
+                else //力量或伤害点在给定时
+                {
+                    v2 = sv2 / 100;
+                }
             }
 
             return new Equipment(set, type, quality, p1, v1, p2, v2);
@@ -822,9 +836,13 @@ namespace EQSim
                 Log.LogBug("力量非正数：" + strength.ToString());
                 strength = 1;
             }
-            double strengthq = strength + state[5];
-            double minDamage = (double)state[3] / 10000;
+            
+            double miss = -(double)state[0] / 10000;
+            double critical = (double)state[1] / 10000;
             double maxDamage = (double)state[2] / 10000;
+            double minDamage = (double)state[3] / 10000;
+            double avoid = (double)state[4] / 10000;
+            double strengthq = strength + state[5];
             double increaseHit = state[6];
 
             baseDmg= (militaryRank * strengthq * 0.8 * (1 + minDamage) + militaryRank * strengthq * 1.2 * (1 + maxDamage + minDamage)) / 2 + increaseHit;
@@ -835,9 +853,9 @@ namespace EQSim
             int avgCQ5 = (int)Math.Round(baseDmg * 10 * (1 + 0.2 * 5));
 
             //计算伤害和爆发比率
-            double score2 = ((double)avgQ1 / 1.2 / 5) * (1 + (double)state[1] / 10000) * (1 + (double)state[0] / 10000) / (strengthq * militaryRank * 1.125 * 0.875);
+            double score2 = ((double)avgQ1 / 1.2 / 5) * (1 + critical) * (1 - miss) / (strengthq * militaryRank * 1.125 * 0.875);
             if (score2 < 1) score2 = 1;
-            double score1 = score2 * 0.95 / (1 - (double)state[4] / 10000);
+            double score1 = score2 * 0.95 / (1 - avoid);
 
             string s = "";
             s += "Q1连击平均伤害/暴击伤害： " + avgQ1 + " / " + avgCQ1 + "\r\n";
