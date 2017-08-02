@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace EQSim
 {
@@ -120,6 +121,10 @@ namespace EQSim
         //自动生成相关
         //特殊set出现几率
         public static int specialSetRate = 10;
+
+
+        //装备品质颜色
+        public static Color[] qualityColor = { Color.Red, Color.OrangeRed, Color.Goldenrod, Color.Green, Color.Purple, Color.DodgerBlue };
 
         #endregion
 

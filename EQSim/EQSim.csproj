@@ -52,6 +52,7 @@
     <Compile Include="CreateEquipment.Designer.cs">
       <DependentUpon>CreateEquipment.cs</DependentUpon>
     </Compile>
+    <Compile Include="DamageSimulation.cs" />
     <Compile Include="Equipment.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

@@ -83,7 +83,7 @@ namespace EQSim
                     eqcode = nextLine.Split(',');
                     if (eqcode[0] == versionChar)
                     {
-                        Log.LogInfo("读取存档版本：v" + eqcode[0]);
+                        Log.LogInfo("读取存档版本：v" + eqcode[1]);
                     }
                     else
                     {

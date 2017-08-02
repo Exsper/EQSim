@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace EQSim
 {
@@ -651,7 +652,7 @@ namespace EQSim
                 case 4:
                 case 8:
                 case 9:
-                case 10: return (v / 100).ToString("F2")+" %";
+                case 10: return (v / 100).ToString("F2")+"%";
                 case 5: 
                 case 6: return value.ToString();
                 case 7: return (v / 100).ToString("F2");
@@ -683,6 +684,25 @@ namespace EQSim
         }
 
 
+        public static void LogEquipment(Equipment eq)
+        {
+            string s = GetEquipmentLineInfo(eq);
+            int start = Form1.f.LogRichTextBox.Text.Length;
+            Form1.f.LogRichTextBox.AppendText(GetEquipmentLineInfo(eq));
+            Form1.f.LogRichTextBox.Select(start, s.Length);
+            Form1.f.LogRichTextBox.SelectionColor = GlobalSpace.qualityColor[eq.Quality];
+            Form1.f.LogRichTextBox.ScrollToCaret();
+        }
+
+        public static void LogString(string s)
+        {
+            int start = Form1.f.LogRichTextBox.Text.Length;
+            Form1.f.LogRichTextBox.AppendText(s);
+            Form1.f.LogRichTextBox.Select(start, s.Length);
+            Form1.f.LogRichTextBox.SelectionColor = Color.Black;
+            Form1.f.LogRichTextBox.ScrollToCaret();
+        }
+
         /// <summary>
         /// 新建随机装备，并刷新仓库
         /// </summary>
@@ -698,7 +718,10 @@ namespace EQSim
             Equipment eq = GetRandomEquipment(set, type, quality, sp1, sv1, sp2, sv2);
             GlobalSpace.storage.Add(eq);
             StorageSort();
-            Log.LogInfo(("你获得了 ") + GetEquipmentLineInfo(eq));
+
+            LogString("你获得了 ");
+            LogEquipment(eq);
+            LogString("\r\n");
         }
 
 
@@ -718,7 +741,10 @@ namespace EQSim
             GlobalSpace.storage.Add(eq);
             WearEquipment(eq);
             StorageSort();
-            Log.LogInfo(("你穿上了 ") + GetEquipmentLineInfo(eq));
+
+            LogString("你穿上了 ");
+            LogEquipment(eq);
+            LogString("\r\n");
         }
 
 
@@ -733,7 +759,14 @@ namespace EQSim
             GlobalSpace.storage.Add(neweq[0]);
             GlobalSpace.storage.Add(neweq[1]);
             StorageSort();
-            Log.LogInfo(("你分解了 ")+ GetEquipmentTitle(eq)+" ，获得了 "+ GetEquipmentLineInfo(neweq[0]) +" 和 " + GetEquipmentLineInfo(neweq[1]) +" 。");
+
+            LogString("你分解了 ");
+            LogEquipment(eq);
+            LogString(" ，获得了 ");
+            LogEquipment(neweq[0]);
+            LogString(" 和 ");
+            LogEquipment(neweq[1]);
+            LogString("\r\n");
         }
 
 
@@ -749,7 +782,16 @@ namespace EQSim
             GlobalSpace.storage.Remove(eq[2]);
             GlobalSpace.storage.Add(neweq);
             StorageSort();
-            Log.LogInfo(("你将装备 ") + GetEquipmentTitle(eq[0]) + " 、 " + GetEquipmentTitle(eq[1]) + " 、 " + GetEquipmentTitle(eq[2]) + " 合成为 " + GetEquipmentLineInfo(neweq));
+
+            LogString("你将装备 ");
+            LogEquipment(eq[0]);
+            LogString(" 、 ");
+            LogEquipment(eq[1]);
+            LogString(" 、 ");
+            LogEquipment(eq[2]);
+            LogString(" 合成为 ");
+            LogEquipment(neweq);
+            LogString("\r\n");
         }
 
 
@@ -761,8 +803,10 @@ namespace EQSim
         {
             GlobalSpace.storage.Remove(eq);
             StorageSort();
-            Log.LogInfo(("你出售了 ") + GetEquipmentLineInfo(eq));
-            //TODO
+
+            LogString("你出售了 ");
+            LogEquipment(eq);
+            LogString("\r\n");
         }
 
 
