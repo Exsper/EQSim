@@ -126,6 +126,12 @@ namespace EQSim
         //装备品质颜色
         public static Color[] qualityColor = { Color.Red, Color.OrangeRed, Color.Goldenrod, Color.Green, Color.Purple, Color.DodgerBlue };
 
+
+        //Html分析相关
+        public static string[] htmlSpecialSet = { "pirate", "postapo", "future", "ee" };
+        public static string[] htmlType = { "helmet", "vision", "armor", "pants", "shoes", "weapon", "offhand", "charm" };
+        public static string[] htmlParameter = { "Reduce miss chance", "Increase critical chance", "Increase maximum damage", "Increase damage", "Increase chance to avoid damage", "Increase strength", "Increase hit", "Economic skill increase", "Increase chance for free flight", "Less weapons per berserk", "Chance to find a weapon" };
+
         #endregion
 
         #region 个人信息

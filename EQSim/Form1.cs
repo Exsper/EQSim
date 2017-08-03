@@ -245,6 +245,15 @@ namespace EQSim
             Log.LogInfo("仓库已清空");
         }
 
+        private void GetEquipmentFromWebsiteButton_Click(object sender, EventArgs e)
+        {
+
+            GetEquipmentsFormWebsite.GetEquipment(ProfileTextBox.Text);
+            UpdateStorage();
+            UpdateWearedEquipment();
+            UpdateState();
+        }
+
         #endregion
 
         #endregion
@@ -784,5 +793,7 @@ namespace EQSim
         }
 
         #endregion
+
+
     }
 }

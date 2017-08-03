@@ -49,6 +49,7 @@
             this.Form1TabControl = new System.Windows.Forms.TabControl();
             this.EQTabPage = new System.Windows.Forms.TabPage();
             this.DamageTabPage = new System.Windows.Forms.TabPage();
+            this.label20 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.CriticalBonusTextBox = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -95,7 +96,9 @@
             this.DamageRadioButton = new System.Windows.Forms.RadioButton();
             this.TimeRadioButton = new System.Windows.Forms.RadioButton();
             this.LimitRadioButton = new System.Windows.Forms.RadioButton();
-            this.label20 = new System.Windows.Forms.Label();
+            this.GetEquipmentFromWebsiteButton = new System.Windows.Forms.Button();
+            this.label21 = new System.Windows.Forms.Label();
+            this.ProfileTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.StrengthNumericUpDown)).BeginInit();
             this.Form1TabControl.SuspendLayout();
             this.EQTabPage.SuspendLayout();
@@ -185,7 +188,7 @@
             this.StateTextBox.Multiline = true;
             this.StateTextBox.Name = "StateTextBox";
             this.StateTextBox.ReadOnly = true;
-            this.StateTextBox.Size = new System.Drawing.Size(383, 229);
+            this.StateTextBox.Size = new System.Drawing.Size(383, 161);
             this.StateTextBox.TabIndex = 9;
             // 
             // StrengthNumericUpDown
@@ -298,6 +301,9 @@
             // EQTabPage
             // 
             this.EQTabPage.BackColor = System.Drawing.Color.Transparent;
+            this.EQTabPage.Controls.Add(this.ProfileTextBox);
+            this.EQTabPage.Controls.Add(this.label21);
+            this.EQTabPage.Controls.Add(this.GetEquipmentFromWebsiteButton);
             this.EQTabPage.Controls.Add(this.StorageCheckedListBox);
             this.EQTabPage.Controls.Add(this.EmptyStorageButton);
             this.EQTabPage.Controls.Add(this.LogRichTextBox);
@@ -379,6 +385,15 @@
             this.DamageTabPage.Size = new System.Drawing.Size(897, 474);
             this.DamageTabPage.TabIndex = 1;
             this.DamageTabPage.Text = "伤害模拟";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(77, 136);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(53, 12);
+            this.label20.TabIndex = 50;
+            this.label20.Text = "烟雾弹：";
             // 
             // label18
             // 
@@ -855,14 +870,32 @@
             this.LimitRadioButton.Text = "指定额度（日常）：";
             this.LimitRadioButton.UseVisualStyleBackColor = true;
             // 
-            // label20
+            // GetEquipmentFromWebsiteButton
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(77, 136);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(53, 12);
-            this.label20.TabIndex = 50;
-            this.label20.Text = "烟雾弹：";
+            this.GetEquipmentFromWebsiteButton.Location = new System.Drawing.Point(8, 387);
+            this.GetEquipmentFromWebsiteButton.Name = "GetEquipmentFromWebsiteButton";
+            this.GetEquipmentFromWebsiteButton.Size = new System.Drawing.Size(100, 36);
+            this.GetEquipmentFromWebsiteButton.TabIndex = 19;
+            this.GetEquipmentFromWebsiteButton.Text = "获取装备";
+            this.GetEquipmentFromWebsiteButton.UseVisualStyleBackColor = true;
+            this.GetEquipmentFromWebsiteButton.Click += new System.EventHandler(this.GetEquipmentFromWebsiteButton_Click);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(114, 399);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(263, 12);
+            this.label21.TabIndex = 20;
+            this.label21.Text = "↑profile网址，从网页获取装备，需要耐心等待";
+            // 
+            // ProfileTextBox
+            // 
+            this.ProfileTextBox.Location = new System.Drawing.Point(8, 360);
+            this.ProfileTextBox.Name = "ProfileTextBox";
+            this.ProfileTextBox.Size = new System.Drawing.Size(385, 21);
+            this.ProfileTextBox.TabIndex = 21;
+            this.ProfileTextBox.Text = "http://primera.e-sim.org/profile.html?id=1";
             // 
             // Form1
             // 
@@ -956,6 +989,9 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox TankBuffCheckBox;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button GetEquipmentFromWebsiteButton;
+        private System.Windows.Forms.TextBox ProfileTextBox;
+        private System.Windows.Forms.Label label21;
     }
 }
 
