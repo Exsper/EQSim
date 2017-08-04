@@ -108,6 +108,10 @@ namespace EQSim
 
             try
             {
+                if (strUrl.StartsWith("http") == false)
+                {
+                    strUrl = "http://" + strUrl;
+                }
                 WebRequest request = WebRequest.Create(strUrl);
                 WebResponse response = request.GetResponse();
                 StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding("utf-8"));
@@ -118,7 +122,7 @@ namespace EQSim
             }
             catch (Exception ex)
             {
-                Log.LogBug(ex.Message);
+                Log.LogBug(ex.Message + "\r\n");
             }
             return strMsg;
         }
@@ -129,10 +133,14 @@ namespace EQSim
             string eqtitle;
             string[] eqs =new string[8];
             int i = 0;
-            //Log.LogInfo(s);
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(s);
             HtmlNode node = doc.GetElementbyId("profileEquipmentNew");
+            if (node == null)
+            {
+                Log.LogInfo("网页错误");
+                return;
+            }
             foreach (HtmlNode eqBox in node.ChildNodes)
             {
                 foreach (HtmlNode eqBack in eqBox.ChildNodes)
