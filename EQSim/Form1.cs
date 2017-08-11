@@ -310,7 +310,7 @@ namespace EQSim
 
             SimulationRichTextBox.AppendText("  ");
 
-            string od = oneDamage.ToString();
+            string od = oneDamage.ToString("###,###");
             start = SimulationRichTextBox.Text.Length;
             SimulationRichTextBox.AppendText(od);
             SimulationRichTextBox.Select(start, od.Length);
@@ -553,7 +553,7 @@ namespace EQSim
 
                 string hc = hitCount.ToString();
                 string li = limit.ToString();
-                string td = totalDamage.ToString();
+                string td = totalDamage.ToString("###,###");
 
                 AppendInfo("连击了 ");
 
@@ -648,7 +648,7 @@ namespace EQSim
                 int start;
 
                 string hc = hitCount.ToString();
-                string td = totalDamage.ToString();
+                string td = totalDamage.ToString("###,###");
 
                 AppendInfo("连击了 ");
 
@@ -762,7 +762,7 @@ namespace EQSim
 
                 string hc = hitCount.ToString();
                 string li = limit.ToString();
-                string td = totalDamage.ToString();
+                string td = totalDamage.ToString("###,###");
 
                 AppendInfo("连击了 ");
 

@@ -48,6 +48,9 @@
             this.LogRichTextBox = new System.Windows.Forms.RichTextBox();
             this.Form1TabControl = new System.Windows.Forms.TabControl();
             this.EQTabPage = new System.Windows.Forms.TabPage();
+            this.ProfileTextBox = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.GetEquipmentFromWebsiteButton = new System.Windows.Forms.Button();
             this.DamageTabPage = new System.Windows.Forms.TabPage();
             this.label20 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -96,9 +99,6 @@
             this.DamageRadioButton = new System.Windows.Forms.RadioButton();
             this.TimeRadioButton = new System.Windows.Forms.RadioButton();
             this.LimitRadioButton = new System.Windows.Forms.RadioButton();
-            this.GetEquipmentFromWebsiteButton = new System.Windows.Forms.Button();
-            this.label21 = new System.Windows.Forms.Label();
-            this.ProfileTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.StrengthNumericUpDown)).BeginInit();
             this.Form1TabControl.SuspendLayout();
             this.EQTabPage.SuspendLayout();
@@ -328,6 +328,33 @@
             this.EQTabPage.Size = new System.Drawing.Size(897, 474);
             this.EQTabPage.TabIndex = 0;
             this.EQTabPage.Text = "装备设置";
+            // 
+            // ProfileTextBox
+            // 
+            this.ProfileTextBox.Location = new System.Drawing.Point(8, 360);
+            this.ProfileTextBox.Name = "ProfileTextBox";
+            this.ProfileTextBox.Size = new System.Drawing.Size(385, 21);
+            this.ProfileTextBox.TabIndex = 21;
+            this.ProfileTextBox.Text = "http://primera.e-sim.org/profile.html?id=1";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(114, 399);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(263, 12);
+            this.label21.TabIndex = 20;
+            this.label21.Text = "↑profile网址，从网页获取装备，需要耐心等待";
+            // 
+            // GetEquipmentFromWebsiteButton
+            // 
+            this.GetEquipmentFromWebsiteButton.Location = new System.Drawing.Point(8, 387);
+            this.GetEquipmentFromWebsiteButton.Name = "GetEquipmentFromWebsiteButton";
+            this.GetEquipmentFromWebsiteButton.Size = new System.Drawing.Size(100, 36);
+            this.GetEquipmentFromWebsiteButton.TabIndex = 19;
+            this.GetEquipmentFromWebsiteButton.Text = "获取装备";
+            this.GetEquipmentFromWebsiteButton.UseVisualStyleBackColor = true;
+            this.GetEquipmentFromWebsiteButton.Click += new System.EventHandler(this.GetEquipmentFromWebsiteButton_Click);
             // 
             // DamageTabPage
             // 
@@ -662,7 +689,7 @@
             // 
             this.WeaponQualitycomboBox.FormattingEnabled = true;
             this.WeaponQualitycomboBox.Items.AddRange(new object[] {
-            "拳头",
+            "空手",
             "Q1",
             "Q2",
             "Q3",
@@ -869,33 +896,6 @@
             this.LimitRadioButton.TabStop = true;
             this.LimitRadioButton.Text = "指定额度（日常）：";
             this.LimitRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // GetEquipmentFromWebsiteButton
-            // 
-            this.GetEquipmentFromWebsiteButton.Location = new System.Drawing.Point(8, 387);
-            this.GetEquipmentFromWebsiteButton.Name = "GetEquipmentFromWebsiteButton";
-            this.GetEquipmentFromWebsiteButton.Size = new System.Drawing.Size(100, 36);
-            this.GetEquipmentFromWebsiteButton.TabIndex = 19;
-            this.GetEquipmentFromWebsiteButton.Text = "获取装备";
-            this.GetEquipmentFromWebsiteButton.UseVisualStyleBackColor = true;
-            this.GetEquipmentFromWebsiteButton.Click += new System.EventHandler(this.GetEquipmentFromWebsiteButton_Click);
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(114, 399);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(263, 12);
-            this.label21.TabIndex = 20;
-            this.label21.Text = "↑profile网址，从网页获取装备，需要耐心等待";
-            // 
-            // ProfileTextBox
-            // 
-            this.ProfileTextBox.Location = new System.Drawing.Point(8, 360);
-            this.ProfileTextBox.Name = "ProfileTextBox";
-            this.ProfileTextBox.Size = new System.Drawing.Size(385, 21);
-            this.ProfileTextBox.TabIndex = 21;
-            this.ProfileTextBox.Text = "http://primera.e-sim.org/profile.html?id=1";
             // 
             // Form1
             // 
