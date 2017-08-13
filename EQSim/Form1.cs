@@ -28,6 +28,7 @@ namespace EQSim
             {
                 MilitaryRankComboBox.Items.Add(GlobalSpace.militaryRankName[i]);
             }
+            //MilitaryRankComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
 
         private void Form1_Load(object sender, EventArgs e)

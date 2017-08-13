@@ -220,10 +220,12 @@
             // 
             // MilitaryRankComboBox
             // 
+            this.MilitaryRankComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.MilitaryRankComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.MilitaryRankComboBox.FormattingEnabled = true;
             this.MilitaryRankComboBox.Location = new System.Drawing.Point(53, 167);
             this.MilitaryRankComboBox.Name = "MilitaryRankComboBox";
-            this.MilitaryRankComboBox.Size = new System.Drawing.Size(143, 20);
+            this.MilitaryRankComboBox.Size = new System.Drawing.Size(232, 20);
             this.MilitaryRankComboBox.TabIndex = 12;
             this.MilitaryRankComboBox.SelectedIndexChanged += new System.EventHandler(this.MilitaryRankComboBox_SelectedIndexChanged);
             // 
