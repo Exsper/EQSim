@@ -17,11 +17,11 @@ namespace EQSim
             InitializeComponent();
         }
 
-        private MyInvoke mi = null;
-        public CreateEquipment(MyInvoke myInvoke)
+        private EQCInvoke eqcInvoke = null;
+        public CreateEquipment(EQCInvoke eqcInvoke)
         {
             InitializeComponent();
-            this.mi = myInvoke;
+            this.eqcInvoke = eqcInvoke;
         }
 
 
@@ -78,7 +78,7 @@ namespace EQSim
                 }
             }
 
-            this.mi(set, type, quality, p1, v1, p2, v2);
+            this.eqcInvoke(set, type, quality, p1, v1, p2, v2);
         }
 
         private void RandomValue1CheckBox_CheckedChanged(object sender, EventArgs e)

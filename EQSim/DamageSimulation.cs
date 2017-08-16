@@ -149,11 +149,5 @@ namespace EQSim
             return Convert.ToInt32(avoidChance * 100);
         }
 
-
-        private static void Calculate(int strength, int militaryRankCount)
-        {
-
-
-        }
     }
 }

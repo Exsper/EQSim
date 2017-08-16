@@ -7,11 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace EQSim
 {
 
-    public delegate void MyInvoke(int set, int type, int quality, int sp1, int sv1, int sp2, int sv2);
+    public delegate void EQCInvoke(int set, int type, int quality, int sp1, int sv1, int sp2, int sv2);
 
     public partial class Form1 : Form
     {
@@ -106,7 +107,7 @@ namespace EQSim
 
         private void CreateEQButton_Click(object sender, EventArgs e)
         {
-            CreateEquipment CE = new CreateEquipment(new MyInvoke(GetInfoFromCE));
+            CreateEquipment CE = new CreateEquipment(new EQCInvoke(GetInfoFromCE));
             CE.ShowDialog(this);
         }
 
@@ -248,7 +249,6 @@ namespace EQSim
 
         private void GetEquipmentFromWebsiteButton_Click(object sender, EventArgs e)
         {
-
             GetEquipmentsFormWebsite.GetEquipment(ProfileTextBox.Text);
             UpdateStorage();
             UpdateWearedEquipment();
@@ -270,7 +270,7 @@ namespace EQSim
             SimulationRichTextBox.ScrollToCaret();
         }
 
-        private void AppendInfo(string s)
+        public void AppendInfo(string s)
         {
             int start = SimulationRichTextBox.Text.Length;
             SimulationRichTextBox.AppendText(s);
@@ -327,6 +327,7 @@ namespace EQSim
             SimulationRichTextBox.AppendText("\r\n");
             SimulationRichTextBox.ScrollToCaret();
         }
+
 
         private void StartDamageSimulationButton_Click(object sender, EventArgs e)
         {
@@ -484,6 +485,7 @@ namespace EQSim
             int criticalChance = DamageSimulation.CalculateCriticalChance(critical, painDealer, moreCritics);
             int avoidChance = DamageSimulation.CalculateAvoidChance(avoid, hospitalQuality, camouflageQuality);
 
+
             if (DamageRadioButton.Checked == true)
             {
                 long damageGoal = 0;
@@ -502,84 +504,8 @@ namespace EQSim
                     LogInfo("伤害目标数值错误：" + TotalDamageNumericUpDown.Value);
                 }
 
-                bool isAvoid;
-                bool isMiss;
-                bool isCritical;
-                int oneDamage;
-                int limit = 0;
-                int hitCount = 0;
-                long totalDamage = 0;
-                Random r = new Random();
 
-                while (damageGoal > totalDamage)
-                {
-                    if (r.Next(0, 100) < avoidChance)
-                    {
-                        isAvoid = true;
-                    }
-                    else
-                    {
-                        isAvoid = false;
-                        limit = limit + 1;
-                    }
-
-                    if (r.Next(0, 100) < notMissChance)
-                    {
-                        isMiss = false;
-                        oneDamage = r.Next(berserkDamage[0], berserkDamage[1]);
-                        if (r.Next(0, 100) < criticalChance)
-                        {
-                            isCritical = true;
-                            oneDamage = oneDamage * 2;
-                        }
-                        else
-                        {
-                            isCritical = false;
-                        }
-                    }
-                    else
-                    {
-                        isMiss = true;
-                        isCritical = false;
-                        oneDamage = 0;
-                    }
-
-                    hitCount = hitCount + 1;
-                    totalDamage = totalDamage + oneDamage;
-
-                    LogOneBerserk(isAvoid, isMiss, isCritical, oneDamage);
-                }
-
-                int start;
-
-                string hc = hitCount.ToString();
-                string li = limit.ToString();
-                string td = totalDamage.ToString("###,###");
-
-                AppendInfo("连击了 ");
-
-                start = SimulationRichTextBox.Text.Length;
-                SimulationRichTextBox.AppendText(hc);
-                SimulationRichTextBox.Select(start, hc.Length);
-                SimulationRichTextBox.SelectionColor = Color.Green;
-
-                AppendInfo(" 次，耗费 ");
-
-                start = SimulationRichTextBox.Text.Length;
-                SimulationRichTextBox.AppendText(li);
-                SimulationRichTextBox.Select(start, li.Length);
-                SimulationRichTextBox.SelectionColor = Color.Green;
-
-                AppendInfo(" 点额度，造成 ");
-
-                start = SimulationRichTextBox.Text.Length;
-                SimulationRichTextBox.AppendText(td);
-                SimulationRichTextBox.Select(start, td.Length);
-                SimulationRichTextBox.SelectionColor = Color.Green;
-
-                AppendInfo(" 点伤害\r\n");
-
-                SimulationRichTextBox.ScrollToCaret();
+                DSByDamage(damageGoal, avoidChance, notMissChance, criticalChance, berserkDamage);
             }
             else if (LimitRadioButton.Checked == true)
             {
@@ -599,80 +525,13 @@ namespace EQSim
                     LogInfo("额度数值错误：" + LimitTextBox.Text);
                 }
 
-                bool isAvoid;
-                bool isMiss;
-                bool isCritical;
-                int oneDamage;
-                int hitCount = 0;
-                long totalDamage = 0;
-                Random r = new Random();
 
-                while (limit > 0)
-                {
-                    if (r.Next(0, 100) < avoidChance)
-                    {
-                        isAvoid = true;
-                    }
-                    else
-                    {
-                        isAvoid = false;
-                        limit = limit - 1;
-                    }
-
-                    if (r.Next(0, 100) < notMissChance)
-                    {
-                        isMiss = false;
-                        oneDamage = r.Next(berserkDamage[0], berserkDamage[1]);
-                        if (r.Next(0, 100) < criticalChance)
-                        {
-                            isCritical = true;
-                            oneDamage = oneDamage * 2;
-                        }
-                        else
-                        {
-                            isCritical = false;
-                        }
-                    }
-                    else
-                    {
-                        isMiss = true;
-                        isCritical = false;
-                        oneDamage = 0;
-                    }
-
-                    hitCount = hitCount + 1;
-                    totalDamage = totalDamage + oneDamage;
-
-                    LogOneBerserk(isAvoid, isMiss, isCritical, oneDamage);
-                }
-
-                int start;
-
-                string hc = hitCount.ToString();
-                string td = totalDamage.ToString("###,###");
-
-                AppendInfo("连击了 ");
-
-                start = SimulationRichTextBox.Text.Length;
-                SimulationRichTextBox.AppendText(hc);
-                SimulationRichTextBox.Select(start, hc.Length);
-                SimulationRichTextBox.SelectionColor = Color.Green;
-
-                AppendInfo(" 次，造成 ");
-
-                start = SimulationRichTextBox.Text.Length;
-                SimulationRichTextBox.AppendText(td);
-                SimulationRichTextBox.Select(start, td.Length);
-                SimulationRichTextBox.SelectionColor = Color.Green;
-
-                AppendInfo(" 点伤害\r\n");
-
-                SimulationRichTextBox.ScrollToCaret();
+                DSByLimit(limit, avoidChance, notMissChance, criticalChance, berserkDamage);
             }
             else if (TimeRadioButton.Checked == true)
             {
                 int hitCount = 0;
-                double time; 
+                double time;
                 double hps;
                 try
                 {
@@ -711,90 +570,219 @@ namespace EQSim
                     hitCount = 1;
                 }
 
-                bool isAvoid;
-                bool isMiss;
-                bool isCritical;
-                int nowHitCount = 0;
-                int oneDamage;
-                int limit = 0;
-                long totalDamage = 0;
-                Random r = new Random();
 
-                while (hitCount > nowHitCount)
+                DSByTime(hitCount, avoidChance, notMissChance, criticalChance, berserkDamage);
+            }
+        }
+
+
+        private void LogDS(int hitCount, int limit, long totalDamage)
+        {
+            int start;
+
+            string hc = hitCount.ToString();
+            string li = limit.ToString();
+            string td = totalDamage.ToString("###,###");
+
+
+            AppendInfo("连击了 ");
+
+            start = SimulationRichTextBox.Text.Length;
+            SimulationRichTextBox.AppendText(hc);
+            SimulationRichTextBox.Select(start, hc.Length);
+            SimulationRichTextBox.SelectionColor = Color.Green;
+
+            AppendInfo(" 次，耗费 ");
+
+            start = SimulationRichTextBox.Text.Length;
+            SimulationRichTextBox.AppendText(li);
+            SimulationRichTextBox.Select(start, li.Length);
+            SimulationRichTextBox.SelectionColor = Color.Green;
+
+            AppendInfo(" 点额度，造成 ");
+
+            start = SimulationRichTextBox.Text.Length;
+            SimulationRichTextBox.AppendText(td);
+            SimulationRichTextBox.Select(start, td.Length);
+            SimulationRichTextBox.SelectionColor = Color.Green;
+
+            AppendInfo(" 点伤害\r\n");
+
+            SimulationRichTextBox.ScrollToCaret();
+        }
+
+
+        private void DSByDamage(long damageGoal, int avoidChance, int notMissChance, int criticalChance, int[] berserkDamage)
+        {
+            bool isAvoid;
+            bool isMiss;
+            bool isCritical;
+            int oneDamage;
+            int limit = 0;
+            int hitCount = 0;
+            long totalDamage = 0;
+            Random r = new Random();
+
+            while (damageGoal > totalDamage)
+            {
+                if (r.Next(0, 100) < avoidChance)
                 {
-                    if (r.Next(0, 100) < avoidChance)
-                    {
-                        isAvoid = true;
-                    }
-                    else
-                    {
-                        isAvoid = false;
-                        limit = limit + 1;
-                    }
-
-                    if (r.Next(0, 100) < notMissChance)
-                    {
-                        isMiss = false;
-                        oneDamage = r.Next(berserkDamage[0], berserkDamage[1]);
-                        if (r.Next(0, 100) < criticalChance)
-                        {
-                            isCritical = true;
-                            oneDamage = oneDamage * 2;
-                        }
-                        else
-                        {
-                            isCritical = false;
-                        }
-                    }
-                    else
-                    {
-                        isMiss = true;
-                        isCritical = false;
-                        oneDamage = 0;
-                    }
-
-                    nowHitCount = nowHitCount + 1;
-                    totalDamage = totalDamage + oneDamage;
-
-                    LogOneBerserk(isAvoid, isMiss, isCritical, oneDamage);
+                    isAvoid = true;
+                }
+                else
+                {
+                    isAvoid = false;
+                    limit = limit + 1;
                 }
 
-                int start;
+                if (r.Next(0, 100) < notMissChance)
+                {
+                    isMiss = false;
+                    oneDamage = r.Next(berserkDamage[0], berserkDamage[1]);
+                    if (r.Next(0, 100) < criticalChance)
+                    {
+                        isCritical = true;
+                        oneDamage = oneDamage * 2;
+                    }
+                    else
+                    {
+                        isCritical = false;
+                    }
+                }
+                else
+                {
+                    isMiss = true;
+                    isCritical = false;
+                    oneDamage = 0;
+                }
 
-                string hc = hitCount.ToString();
-                string li = limit.ToString();
-                string td = totalDamage.ToString("###,###");
+                hitCount = hitCount + 1;
+                totalDamage = totalDamage + oneDamage;
 
-                AppendInfo("连击了 ");
-
-                start = SimulationRichTextBox.Text.Length;
-                SimulationRichTextBox.AppendText(hc);
-                SimulationRichTextBox.Select(start, hc.Length);
-                SimulationRichTextBox.SelectionColor = Color.Green;
-
-                AppendInfo(" 次，耗费 ");
-
-                start = SimulationRichTextBox.Text.Length;
-                SimulationRichTextBox.AppendText(li);
-                SimulationRichTextBox.Select(start, li.Length);
-                SimulationRichTextBox.SelectionColor = Color.Green;
-
-                AppendInfo(" 点额度，造成 ");
-
-                start = SimulationRichTextBox.Text.Length;
-                SimulationRichTextBox.AppendText(td);
-                SimulationRichTextBox.Select(start, td.Length);
-                SimulationRichTextBox.SelectionColor = Color.Green;
-
-                AppendInfo(" 点伤害\r\n");
-
-                SimulationRichTextBox.ScrollToCaret();
+                if (ShowOneDamageCheckBox.Checked == true)
+                {
+                    LogOneBerserk(isAvoid, isMiss, isCritical, oneDamage);
+                }
             }
 
+            LogDS(hitCount, limit, totalDamage);
+        }
+
+
+        private void DSByLimit(int limit, int avoidChance, int notMissChance, int criticalChance, int[] berserkDamage)
+        {
+            bool isAvoid;
+            bool isMiss;
+            bool isCritical;
+            int usedLimit = 0;
+            int oneDamage;
+            int hitCount = 0;
+            long totalDamage = 0;
+            Random r = new Random();
+
+            while (limit > 0)
+            {
+                if (r.Next(0, 100) < avoidChance)
+                {
+                    isAvoid = true;
+                }
+                else
+                {
+                    isAvoid = false;
+                    limit = limit - 1;
+                    usedLimit = usedLimit + 1;
+                }
+
+                if (r.Next(0, 100) < notMissChance)
+                {
+                    isMiss = false;
+                    oneDamage = r.Next(berserkDamage[0], berserkDamage[1]);
+                    if (r.Next(0, 100) < criticalChance)
+                    {
+                        isCritical = true;
+                        oneDamage = oneDamage * 2;
+                    }
+                    else
+                    {
+                        isCritical = false;
+                    }
+                }
+                else
+                {
+                    isMiss = true;
+                    isCritical = false;
+                    oneDamage = 0;
+                }
+
+                hitCount = hitCount + 1;
+                totalDamage = totalDamage + oneDamage;
+
+                if (ShowOneDamageCheckBox.Checked == true)
+                {
+                    LogOneBerserk(isAvoid, isMiss, isCritical, oneDamage);
+                }
+            }
+
+            LogDS(hitCount, usedLimit, totalDamage);
+        }
+
+
+        private void DSByTime(int hitCount, int avoidChance, int notMissChance, int criticalChance, int[] berserkDamage)
+        {
+            bool isAvoid;
+            bool isMiss;
+            bool isCritical;
+            int nowHitCount = 0;
+            int oneDamage;
+            int limit = 0;
+            long totalDamage = 0;
+            Random r = new Random();
+
+            while (hitCount > nowHitCount)
+            {
+                if (r.Next(0, 100) < avoidChance)
+                {
+                    isAvoid = true;
+                }
+                else
+                {
+                    isAvoid = false;
+                    limit = limit + 1;
+                }
+
+                if (r.Next(0, 100) < notMissChance)
+                {
+                    isMiss = false;
+                    oneDamage = r.Next(berserkDamage[0], berserkDamage[1]);
+                    if (r.Next(0, 100) < criticalChance)
+                    {
+                        isCritical = true;
+                        oneDamage = oneDamage * 2;
+                    }
+                    else
+                    {
+                        isCritical = false;
+                    }
+                }
+                else
+                {
+                    isMiss = true;
+                    isCritical = false;
+                    oneDamage = 0;
+                }
+
+                nowHitCount = nowHitCount + 1;
+                totalDamage = totalDamage + oneDamage;
+
+                if (ShowOneDamageCheckBox.Checked == true)
+                {
+                    LogOneBerserk(isAvoid, isMiss, isCritical, oneDamage);
+                }
+            }
+
+            LogDS(hitCount, limit, totalDamage);
         }
 
         #endregion
-
-
     }
 }

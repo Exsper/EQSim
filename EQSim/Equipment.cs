@@ -747,6 +747,8 @@ namespace EQSim
             LogString("\r\n");
         }
 
+        public delegate void CWREInvoke(int set, int type, int quality, int sp1, int sv1, int sp2, int sv2);
+
 
         /// <summary>
         /// 分解装备，并刷新仓库

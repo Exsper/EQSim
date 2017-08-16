@@ -99,6 +99,7 @@
             this.DamageRadioButton = new System.Windows.Forms.RadioButton();
             this.TimeRadioButton = new System.Windows.Forms.RadioButton();
             this.LimitRadioButton = new System.Windows.Forms.RadioButton();
+            this.ShowOneDamageCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.StrengthNumericUpDown)).BeginInit();
             this.Form1TabControl.SuspendLayout();
             this.EQTabPage.SuspendLayout();
@@ -361,6 +362,7 @@
             // DamageTabPage
             // 
             this.DamageTabPage.BackColor = System.Drawing.Color.Transparent;
+            this.DamageTabPage.Controls.Add(this.ShowOneDamageCheckBox);
             this.DamageTabPage.Controls.Add(this.label20);
             this.DamageTabPage.Controls.Add(this.label18);
             this.DamageTabPage.Controls.Add(this.CriticalBonusTextBox);
@@ -899,6 +901,18 @@
             this.LimitRadioButton.Text = "指定额度（日常）：";
             this.LimitRadioButton.UseVisualStyleBackColor = true;
             // 
+            // ShowOneDamageCheckBox
+            // 
+            this.ShowOneDamageCheckBox.AutoSize = true;
+            this.ShowOneDamageCheckBox.Checked = true;
+            this.ShowOneDamageCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ShowOneDamageCheckBox.Location = new System.Drawing.Point(503, 24);
+            this.ShowOneDamageCheckBox.Name = "ShowOneDamageCheckBox";
+            this.ShowOneDamageCheckBox.Size = new System.Drawing.Size(96, 16);
+            this.ShowOneDamageCheckBox.TabIndex = 51;
+            this.ShowOneDamageCheckBox.Text = "显示每次伤害";
+            this.ShowOneDamageCheckBox.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -956,7 +970,6 @@
         private System.Windows.Forms.RadioButton DamageRadioButton;
         private System.Windows.Forms.RadioButton TimeRadioButton;
         private System.Windows.Forms.RadioButton LimitRadioButton;
-        private System.Windows.Forms.RichTextBox SimulationRichTextBox;
         private System.Windows.Forms.Button StartDamageSimulationButton;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox CriticalBonusTextBox;
@@ -994,6 +1007,8 @@
         private System.Windows.Forms.Button GetEquipmentFromWebsiteButton;
         private System.Windows.Forms.TextBox ProfileTextBox;
         private System.Windows.Forms.Label label21;
+        public System.Windows.Forms.RichTextBox SimulationRichTextBox;
+        private System.Windows.Forms.CheckBox ShowOneDamageCheckBox;
     }
 }
 
