@@ -141,11 +141,11 @@ namespace EQSim
         {
             //！免伤算法尚待确认
             double avoidChance = avoid;
-            if (camouflageQuality == 1) { avoidChance = avoidChance + 0.4; }
-            if (camouflageQuality == 2) { avoidChance = avoidChance + 0.2; }
-            if (camouflageQuality == 3) { avoidChance = avoidChance + 0.1; }
+            if (camouflageQuality == 1) { avoidChance = avoidChance * 1.4; }
+            if (camouflageQuality == 2) { avoidChance = avoidChance * 1.2; }
+            if (camouflageQuality == 3) { avoidChance = avoidChance * 1.1; }
             avoidChance = avoidChance + hospitalQuality * 0.05 - avoidChance * hospitalQuality * 0.05;
-            if (avoidChance > 0.4) avoidChance = 0.4;
+            //if (avoidChance > 0.4) avoidChance = 0.4;
             return Convert.ToInt32(avoidChance * 100);
         }
 
